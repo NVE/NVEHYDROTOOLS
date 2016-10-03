@@ -7,6 +7,6 @@
 recession_times()
 }
 \description{
-Calculates recession times
+## This script calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
 }
 

@@ -1,5 +1,4 @@
-## This script calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
-# Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
+
 # library(compare)
 
 
@@ -9,7 +8,8 @@
 #' @import compare
 #' @return
 #' @export
-#'
+#' @description ## This script calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
+# Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
 #' @examples
 recession_times <- function(){
 
