@@ -30,13 +30,23 @@ Return intervals for independent POTs are retrieved (approxfun from distribution
 DF_result is saved after all stations are processed and saved (it contains average values).
 
 
-3) create_update_AMStable.R
-This script updates the AMS table with flood peak for daily data and hourly data when new data years exist in HYDRA, as well as corresponding data @flood if knekk and daily arent same event
-You must download new HYDRA data and either adjust the path, or paste into current folder of SeNorge-data (//nve/fil/h/HM/Interne Prosjekter/Flomkart/Catchment_Data)
-It calculates flood generating process for floods as fraction_rain (fraction of rain contribution to flood, rest is snowmelt).
-It reads in AMS-table for updating, recession times (for FGPs), discharge data (daily and knekkpunkt), and senorge data.
-For each station, it gets years that need to be updated (addyear_years), and loops then through years: it subsets daily and knekk to current year and gets annual maximum plus date.
-Then it calculates FGP (if date@daily and date@knekk are only +-1 day apart = same event, or if only knekkdata or only daily resolution exists) the FGPs and writes into AMS-table (ams_updat).
-If date@daily and date@knekk are mroe than +-1 day apart = different event, then two lines are added into ams_updat. FGPs are calculated for both daily and knekk-value.
-Corresponding dischagre is extracted for date of knekk/daily-flood and written into corresponding date file.
-The finished table is saved as ams_updat.txt.
+3) create_AMStable.R
+Excample of use:
+setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+source('create_ams_functions_v2.R')
+
+myams<-extract_ams_allstations("../Data/Flooddata/Table_stations_periods.csv",
+                               "../Data/Dailydata","../Data/Subdaily","../Data/Flooddata/amsvalues.txt")
+
+This script creates an AMS table with flood peak for daily data and hourly data.
+The years for which the AMS valiues are to be extracted are specified in the file 
+"../Data/Flooddata/Table_stations_periods.csv"
+The largest daily flood is extracted for all specified years provided we have more than 363 observations that year.
+The largest sub-daily flood is extracted only for years where we have daily floods.
+If daily and subdaily floods are separated more than two days, they are assumed to represent two differen events.
+
+
+Excample data are provided. For full dataset, You must download new HYDRA data and 
+either adjust the path, or paste into current folder of SeNorge-data 
+(//nve/fil/h/HM/Interne Prosjekter/Flomkart/Catchment_Data)
+
