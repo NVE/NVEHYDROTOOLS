@@ -30,7 +30,7 @@ Return intervals for independent POTs are retrieved (approxfun from distribution
 DF_result is saved after all stations are processed and saved (it contains average values).
 
 
-3) create_AMStable.R
+3) create_ams_functions_v2.R
 Excample of use:
 setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
 source('create_ams_functions_v2.R')
@@ -50,3 +50,20 @@ Excample data are provided. For full dataset, You must download new HYDRA data a
 either adjust the path, or paste into current folder of SeNorge-data 
 (//nve/fil/h/HM/Interne Prosjekter/Flomkart/Catchment_Data)
 
+
+4: 
+setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+source('create_ams_functions_v2.R')
+
+SeNorge_gridID_for_catchments
+library('rgdal')
+library('rgeos')
+
+source('SeNorge_gridID_for_catchments.R')
+#GIS-data kan be loaded from fra http://nedlasting.nve.no/gis/, and you should select  
+#HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
+
+grid_id_all_catchments<-gridcell_list(NA,"E:/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp")
+
+source('SeNorge_gridID_for_catchments')
+tt1<-gridcell_list("2.11.0","Hydrologi_TotalNedborfeltMalestasjon.shp")
