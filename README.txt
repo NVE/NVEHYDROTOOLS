@@ -8,6 +8,23 @@ This script calculates average recession times in days, based on method describe
 It loads in the AMS-table as stations to calculate recession times for, but can also be applied to other data. 
 Required inputs (besides AMS-table or another overview table with station numbers (eg 2) is daily discharge data from HYDRA.
 Results are written as a textfile.
+Excample of use:
+setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+source('calculate_recessiontimes.R')
+
+myams<-extract_ams_allstations("../Data/Flooddata/Table_stations_periods.csv",
+                               "../Data/Dailydata","../Data/Subdaily","../Data/Flooddata/amsvalues.txt")
+
+extract_recessiontimes_allstations<-function(fraction=0.995, "../Data/Flooddata/Table_stations_periods.csv",
+                                    "../Data/Dailydata", "../Data/Flooddata/recessiontimes.txt")
+This script creates an table with the recessiontimes in days.
+The stations and years years for which the recessiontimes are to be extracted are specified in the file 
+"../Data/Flooddata/Table_stations_periods.csv"
+
+Excample data are provided. For full dataset, You must download new HYDRA data and 
+either adjust the path, or paste into current folder of SeNorge-data 
+(//nve/fil/h/HM/Interne Prosjekter/Flomkart/Catchment_Data)
+
 
 
 2) get_POT_FGP_returnintervall_gumbel.R:
