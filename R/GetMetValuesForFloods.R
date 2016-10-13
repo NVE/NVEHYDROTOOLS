@@ -1,22 +1,23 @@
-
-#' Title + short description
+#' Title Extract daily values for precipitation, rain, snowmelt, temperature and runoff from
+#' the SeNorge data for specified catchments.
 #'
-#' @param x describe the x parameter
+#' @param gridid List of SeNorge grids for each catchment. Created by the function gridcell_list
+#' @param first_day The first day of the time sequence
+#' @param last_day The last day of the time sequence
+#' @param station_file List of stations if only a subset from the gridid-list is needed
+#' @param snr_translation Translation to GIS-station numbers if necesessary
+#' @param metfolder folder where SeNorge Met-grids are stored
+#' @param snowfolder folder where the SeNorge snow grids are stored
+#' @param hbvfolder folder where the SeNorge water balance modellin grids are stored
+#' @param outfolder folder for witing the results
 #'
-#' @return
+#' @return list with tables of daily and average monthly values
 #' @export
 #'
-#' @examples
-takefirst<-function(x){
-# tar første verdi i et array
-x[1]
-}
-
-taketail<-function(x){
-# utelater første verdi i et array og leger til 1 fordi python teller gridruter fra 0 og oppover
-l=length(x)
-x[1:l]+1
-}
+#' @examples get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
+#' station_file="../inst/Excample_data/Flooddata/Table_stations_periods.csv",
+#' snr_translation="../inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+#' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="../inst/Complete_data/Flooddata/")
 
 get_metdataforfloods<-function(gridid=NA,first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
 station_file="../Data/Flooddata/Table_stations_periods.csv",
@@ -173,6 +174,8 @@ write.table(SaveR,paste(outfolder,"SaveR.txt",sep=""))
 write.table(aveS,paste(outfolder,"aveS.txt",sep=""))
 write.table(SaveS,paste(outfolder,"SaveS.txt",sep=""))
 
+out<-list(SaveT, SaveP, SaveR, SaveS, SaveQ, aveT, aveP,aveR, aveS, aveQ)
+return(out)
 }
 
 

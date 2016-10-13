@@ -12,21 +12,8 @@ Description: More about what it does (maybe more than one line)
 License: MIT
 RoxygenNote: 5.0.1
 Imports:
-  compare,
-  timeDate,
-  plyr,
-  data.table,
-  fields,
-  lubridate,
-  Kendall,
-  hydroGOF,
-  ggplot2,
-  scales,
-  Rmisc,
-  lmomco,
-  evir,
-  aqfig,
-  MASS,
-  verification
+  rgdal,
+  sp,
+  rgeos,
 Suggests:
   testthat
