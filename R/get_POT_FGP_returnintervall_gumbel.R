@@ -32,6 +32,7 @@
 #  for each independent POT event above threshold based on chosen percentile (set value in line 23)
 #'
 #' @return
+#' @import lmomco
 #' @export
 #'
 #' @examples
@@ -46,7 +47,7 @@ threshold_value <- 0.99
 FrequencyAnalysis <- function( series, distribution, nep = nonexceeds()[2:29] ) {   #orig: nep=nonexceeds()
 
 
-  library(lmomco)
+  # library(lmomco)
 
   distribution <- tolower(distribution)
   transformed <- FALSE

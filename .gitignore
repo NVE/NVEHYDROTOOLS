@@ -2,4 +2,4 @@
 .Rhistory
 .RData
 R/SeNorge_gridID_for_catchments.R.txt
-Data/Complete_data/
+inst/Complete_data/

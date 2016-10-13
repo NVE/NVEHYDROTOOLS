@@ -1,7 +1,7 @@
-Scripts developed during Flomkartproject:
+**Scripts developed during Flomkartproject:**
 
 
-Lena Schlichting 2016.
+*Lena Schlichting 2016.*
 
 1) calculate_recessiontimes.R:
 This script calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
@@ -9,14 +9,15 @@ It loads in the AMS-table as stations to calculate recession times for, but can 
 Required inputs (besides AMS-table or another overview table with station numbers (eg 2) is daily discharge data from HYDRA.
 Results are written as a textfile.
 Excample of use:
-setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
-source('calculate_recessiontimes.R')
+> setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+> source('calculate_recessiontimes.R')
 
-myams<-extract_ams_allstations("../Data/Flooddata/Table_stations_periods.csv",
+> myams<-extract_ams_allstations("../Data/Flooddata/Table_stations_periods.csv",
                                "../Data/Dailydata","../Data/Subdaily","../Data/Flooddata/amsvalues.txt")
 
-extract_recessiontimes_allstations<-function(fraction=0.995, "../Data/Flooddata/Table_stations_periods.csv",
+> extract_recessiontimes_allstations<-function(fraction=0.995, "../Data/Flooddata/Table_stations_periods.csv",
                                     "../Data/Dailydata", "../Data/Flooddata/recessiontimes.txt")
+
 This script creates an table with the recessiontimes in days.
 The stations and years years for which the recessiontimes are to be extracted are specified in the file 
 "../Data/Flooddata/Table_stations_periods.csv"
@@ -88,3 +89,13 @@ c_layer="Hydrologi_TotalNedborfeltMalestasjon")
 Get grid-id for one catchment
 grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
 c_layer="Hydrologi_TotalNedborfeltMalestasjon")
+
+5: GetMetValuesForFloods.R
+Excample of use
+setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+source('GetMetValuesForFloods.R')
+# Need to run gridcell_list first, see pint 4 above!
+get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
+station_file="../Data/Excample_data/Flooddata/Table_stations_periods.csv", 
+snr_translation="../Data/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="../Data/Complete_data/Flooddata/")

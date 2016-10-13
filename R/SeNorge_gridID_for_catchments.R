@@ -1,4 +1,18 @@
 
+#' Title
+#'
+#' @param c_ids
+#' @param c_shape
+#' @param c_layer
+#' @param llcenter
+#' @param gridsize
+#' @param griddim
+#' @param myprojection
+#'
+#' @return
+#' @export
+#'
+#' @examples
 gridcell_list<-function(c_ids=c("2.11.0","12.13.0"),c_shape="Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer=NA,
  llcenter=c(-74500, 6450500), gridsize=c(1000,1000), griddim=c(1195,1550), myprojection=NA){
 
@@ -7,8 +21,8 @@ gridcell_list<-function(c_ids=c("2.11.0","12.13.0"),c_shape="Hydrologi_TotalNedb
   }
   if (!require('rgeos')) {
     stop('The package rgeos was not installed')
-  }  
-  
+  }
+
 if(is.na(c_layer))
 c_layer=strsplit(c_shape,'.',fixed=TRUE)[[1]][1]
 all_catchments <- rgdal::readOGR(c_shape,c_layer)
