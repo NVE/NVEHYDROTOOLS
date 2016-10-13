@@ -49,12 +49,14 @@ DF_result is saved after all stations are processed and saved (it contains avera
 
 3) create_ams_functions_v2.R
 Excample of use:
-setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
+setwd('M:/Dokumenter/NVEHYDROTOOLS/R')
 source('create_ams_functions_v2.R')
 
-myams<-extract_ams_allstations("../Data/Flooddata/Table_stations_periods.csv",
-                               "../Data/Dailydata","../Data/Subdaily","../Data/Flooddata/amsvalues.txt")
-
+myams<-extract_ams_allstations(stations_periods_file="../Data/Excample_data/Flooddata/Table_stations_periods.csv",
+                               dailydata="../Data/Excample_data/Dailydata",
+							   subdailydata="../Data/Excample_data/Subdaily",
+							   outfile="../Data/Excample_data/Flooddata/amsvalues.txt")
+stations_periods_file specify whic periods should be used for AMS values
 This script creates an AMS table with flood peak for daily data and hourly data.
 The years for which the AMS valiues are to be extracted are specified in the file 
 "../Data/Flooddata/Table_stations_periods.csv"
@@ -62,25 +64,27 @@ The largest daily flood is extracted for all specified years provided we have mo
 The largest sub-daily flood is extracted only for years where we have daily floods.
 If daily and subdaily floods are separated more than two days, they are assumed to represent two differen events.
 
-
-Excample data are provided. For full dataset, You must download new HYDRA data and 
-either adjust the path, or paste into current folder of SeNorge-data 
-(//nve/fil/h/HM/Interne Prosjekter/Flomkart/Catchment_Data)
+Excample data are provided. The full dataset, you will find on: 
+//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data
 
 
-4: 
+4:  SeNorge_gridID_for_catchments.R
+Excample of use
 setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS/R')
-source('create_ams_functions_v2.R')
-
-SeNorge_gridID_for_catchments
 library('rgdal')
 library('rgeos')
-
 source('SeNorge_gridID_for_catchments.R')
+
 #GIS-data kan be loaded from fra http://nedlasting.nve.no/gis/, and you should select  
 #HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
 
-grid_id_all_catchments<-gridcell_list(NA,"E:/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp")
+For NVE users, the data are stored at
+//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData
 
-source('SeNorge_gridID_for_catchments')
-tt1<-gridcell_list("2.11.0","Hydrologi_TotalNedborfeltMalestasjon.shp")
+Get grid-ids for all catchments:
+grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+c_layer="Hydrologi_TotalNedborfeltMalestasjon")
+
+Get grid-id for one catchment
+grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+c_layer="Hydrologi_TotalNedborfeltMalestasjon")
