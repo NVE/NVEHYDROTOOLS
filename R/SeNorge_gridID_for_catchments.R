@@ -11,9 +11,8 @@
 #'
 #' @return a list of grid-ids, where each element of the list represent a catchment. The names of the grid elemnts are copied from c_ids"RegineNumber.MainNumber.0"
 #' @export
-#' @importFrom
-#' rgdal readOGR
-#' sp proj4string GridTopology SpatialGridDataFrame over
+#' @importFrom rgdal readOGR
+#' @importFrom sp proj4string GridTopology SpatialGridDataFrame over
 #'
 #' @examples
 #' grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon")
