@@ -8,9 +8,12 @@
 #' @return
 #' @export
 #'
-#' @examples
-extract_ams_allstations<-function(stations_periods_file="../Data/Flooddata/Table_stations_periods.csv",dailydata="../Data/Dailydata",
-                                  subdailydata="../Data/Subdaily",outfile="../Data/Flooddata/amsvalues.txt"){
+#' @examples extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
+#' dailydata="inst/Example_data/Dailydata", subdailydata="inst/Example_data/Subdaily",
+#' outfile="inst/Example_data/Flooddata/amsvalues.txt")
+#' 
+extract_ams_allstations<-function(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",dailydata="inst/Example_data/Dailydata",
+                                  subdailydata="inst/Example_data/Subdaily",outfile="inst/Example_data/Flooddata/amsvalues.txt"){
   stations_ams <- read.table(stations_periods_file, sep=";",header = T)
   stations_ams<-stations_ams[!is.na(stations_ams[,1]),]
   myams<-NA
@@ -26,14 +29,15 @@ extract_ams_allstations<-function(stations_periods_file="../Data/Flooddata/Table
 }
 
 
-#' Extract period with subdaily data from a data with unregular times
+#' Extract period with subdaily data from a data with unregular times. Looks for the first four
+#' days in a row with subdaily time resolution. Assumes the reimaining period is at subdaily resoultion
 #'
 #' @param s_dat the data frame with the dates
 #'
 #' @return a dataframe where only periods with subdaily data is included
 #' @export
 #'
-#' @examples
+#' @examples get_subdaily_period(s_dat)
 get_subdaily_period<-function(s_dat){
   ns<-length(s_dat$date)
   tdiff<-as.numeric(s_dat$date[2:ns])-as.numeric(s_dat$date[1:ns-1])
@@ -79,10 +83,12 @@ sum_nona<-function(xx){
 #' if they are from different events, they are written on different lines
 #' @export
 #'
-#' @examples
+#' @examples get_amsdata(stationnumber=200011, path_dd='inst/Excample_data/Dailydata',
+#' path_sd='inst/Excample_data/Subdaily',active_station=0,
+#' d_first=1880,d_last=2015,d_exclude=NA,s_first=1880,s_last=2015,s_exclude=NA)
 #'
-get_amsdata<-function(stationnumber=200011, path_dd='../inst/Excample_data/Dailydata',
-                      path_sd='../inst/Excample_data/Subdaily',active_station=0,
+get_amsdata<-function(stationnumber=200011, path_dd='inst/Excample_data/Dailydata',
+                      path_sd='inst/Excample_data/Subdaily',active_station=0,
                       d_first=1880,d_last=2015,d_exclude=NA,s_first=1880,s_last=2015,s_exclude=NA){
 
 ## loop for each station, find data to fill in, add row with new data results to correct place
@@ -290,7 +296,7 @@ get_amsdata<-function(stationnumber=200011, path_dd='../inst/Excample_data/Daily
 #' @return data frame with one more line than teh input
 #' @export
 #'
-#' @examples
+#' @examples insertRow(existingDF,r,dailydat,knekkdat) 
 insertRow <- function(existingDF,r,dailydat,knekkdat) {
   existingDF[seq(r+1,nrow(existingDF)+1),] <- existingDF[seq(r,nrow(existingDF)),]
   existingDF[r,] <- existingDF[r+1,]

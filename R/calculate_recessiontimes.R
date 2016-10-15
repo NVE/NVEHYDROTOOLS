@@ -2,20 +2,6 @@
 # Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
 #(c) Lena Schlichting, lesc@nve.no, 2015
 
-
-#load required libraries
-#library(compare)
-
-#select lamda for fraction (worked well between 0.9 - 0.99)
-#fraction <- 0.995
-#stations_ams <- read.table("../Flomdata/Table_stations_periods.csv", sep=";",header = T)
-#stations_ams<-stations_ams[!is.na(stations_ams[,1]),]
-
-#add snumber into unique_list
-
-#setwd('//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/Ny_Data')
-#load in discharge data
-# Count the number of observations that are no NA
 #' Function for calculating number of values that are not NA in a vector
 #'
 #' @param xx
@@ -28,7 +14,7 @@ sum_nona<-function(xx){
   sum(!is.na(xx))
 }
 
-#' Wrapping the 'get_recession_time' function to get recession times for a list of stations.
+#' Wrapping the function 'get_recession_time' function to get recession times for a list of stations.
 #' Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
 #' Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
 #' @param fraction quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended
@@ -40,12 +26,14 @@ sum_nona<-function(xx){
 #' @export
 #'
 #' @examples extract_recessiontimes_allstations(fraction=0.995,
-#' "../inst/Example_data/Flooddata/Table_stations_periods.csv",
-#' "../inst/Dailydata", "../inst/Example_data/Flooddata/recessiontimes.txt")
+#' "inst/Example_data/Flooddata/Table_stations_periods.csv",
+#' "inst/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
+#' 
 extract_recessiontimes_allstations<-function(fraction=0.995,
-  stations_periods_file="../Data/Flooddata/Table_stations_periods.csv",
-  dailydata="../Data/Dailydata",
-  outfile="../Data/Flooddata/recessiontimes.txt"){
+  stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
+  dailydata="inst/Example_data/Dailydata",
+  outfile="inst/Example_data/Flooddata/recessiontimes.txt"){
+  
   stations_ams <- read.table(stations_periods_file, sep=";",header = T)
   stations_ams<-stations_ams[!is.na(stations_ams[,1]),]
   myrec<-NA
@@ -75,7 +63,7 @@ extract_recessiontimes_allstations<-function(fraction=0.995,
 #' @export
 #'
 #' @examples
-get_recession_time<-function(fraction=0.995,stationnumber=200011, path_dd='../Dogndata',active_station=0,
+get_recession_time<-function(fraction=0.995,stationnumber=200011, path_dd='inst/Example_data/Dailydata',active_station=0,
                       d_first=1880,d_last=2015,d_exclude){
 
   #extract regine and main numbers for later matching

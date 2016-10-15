@@ -15,14 +15,14 @@
 #' @export
 #'
 #' @examples get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
-#' station_file="../inst/Excample_data/Flooddata/Table_stations_periods.csv",
-#' snr_translation="../inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
-#' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="../inst/Complete_data/Flooddata/")
+#' station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
+#' snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+#' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 
 get_metdataforfloods<-function(gridid=NA,first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
-station_file="../Data/Flooddata/Table_stations_periods.csv",
-snr_translation="../Data/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
-metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolder="../Data/Complete_data/Flooddata/")
+station_file="inst/Flooddata/Table_stations_periods.csv",
+snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolder="inst/Excample_data/Flooddata/")
 {
 noc=1852250    # antall celler i seNorge-grid
 NoData=10000
@@ -38,8 +38,7 @@ par2='rr'      # nedbor
 par3='qsw'     # Snøsmelting
 par4='gwb_q'   # Avrenning
 
-#setwd('//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/klimadata') # data are stored here
-# The stations for which climate characteristics are to be calculated
+
 slist<-read.table(station_file,sep=";",header=TRUE)
 
 rnr=as.integer(slist[,1]/100000)
