@@ -85,6 +85,7 @@ get_fgp<-function(cfloods,crain,csnow,cdates,ctime=2,rtime=6){
   flood_dates<-as.Date(cfloods[,3])
   met_end<-match(flood_dates,cdates)
   met_start<-met_end-ctime-rtime
+  
   ext_fgp<-function(ii){
     if(is.na(met_start[ii]))frain<-NA
     else{
