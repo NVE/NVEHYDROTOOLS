@@ -7,10 +7,10 @@ the SeNorge data for specified catchments.}
 \usage{
 get_metdataforfloods(gridid = NA, first_day = as.Date("1961/1/1"),
   last_day = as.Date("1990/12/31"),
-  station_file = "../Data/Flooddata/Table_stations_periods.csv",
-  snr_translation = "../Data/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+  station_file = "inst/Flooddata/Table_stations_periods.csv",
+  snr_translation = "inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
   metfolder = "U:/metdata/", snowfolder = "U:/snowsim/",
-  hbvfolder = "Z:/gwbsim/", outfolder = "../Data/Complete_data/Flooddata/")
+  hbvfolder = "Z:/gwbsim/", outfolder = "inst/Excample_data/Flooddata/")
 }
 \arguments{
 \item{gridid}{List of SeNorge grids for each catchment. Created by the function gridcell_list}
@@ -40,8 +40,8 @@ the SeNorge data for specified catchments.
 }
 \examples{
 get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
-station_file="../inst/Excample_data/Flooddata/Table_stations_periods.csv",
-snr_translation="../inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
-metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="../inst/Complete_data/Flooddata/")
+station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
+snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 }
 

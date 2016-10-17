@@ -2,7 +2,8 @@
 % Please edit documentation in R/create_ams_functions_v2.R
 \name{get_subdaily_period}
 \alias{get_subdaily_period}
-\title{Extract period with subdaily data from a data with unregular times}
+\title{Extract period with subdaily data from a data with unregular times. Looks for the first four
+days in a row with subdaily time resolution. Assumes the reimaining period is at subdaily resoultion}
 \usage{
 get_subdaily_period(s_dat)
 }
@@ -13,6 +14,10 @@ get_subdaily_period(s_dat)
 a dataframe where only periods with subdaily data is included
 }
 \description{
-Extract period with subdaily data from a data with unregular times
+Extract period with subdaily data from a data with unregular times. Looks for the first four
+days in a row with subdaily time resolution. Assumes the reimaining period is at subdaily resoultion
+}
+\examples{
+get_subdaily_period(s_dat)
 }
 

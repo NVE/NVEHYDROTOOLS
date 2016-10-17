@@ -1,22 +1,16 @@
-## This script calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
-# Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
-#(c) Lena Schlichting, lesc@nve.no, 2015
 
 #' Function for calculating number of values that are not NA in a vector
 #'
-#' @param xx
-#'
-#' @return integer
+#' @param xx The array of numbers and possible NA values
+#' @return An integer with the number of values that are not NA
 #' @export
-#'
-#' @examples
+#' @examples som_nona(x)
 sum_nona<-function(xx){
   sum(!is.na(xx))
 }
 
-#' Wrapping the function 'get_recession_time' function to get recession times for a list of stations.
-#' Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
-#' Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
+#' @title Calculate recession times for a set of stations
+#' @description See 'get_recession_time' for details on how recession times are extracted
 #' @param fraction quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended
 #' @param stations_periods_file a file with list of stations and data periods to be used for estimationg recession
 #' @param dailydata folder with daildata
@@ -28,12 +22,12 @@ sum_nona<-function(xx){
 #' @examples extract_recessiontimes_allstations(fraction=0.995,
 #' "inst/Example_data/Flooddata/Table_stations_periods.csv",
 #' "inst/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
-#' 
+#'
 extract_recessiontimes_allstations<-function(fraction=0.995,
   stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
   dailydata="inst/Example_data/Dailydata",
   outfile="inst/Example_data/Flooddata/recessiontimes.txt"){
-  
+
   stations_ams <- read.table(stations_periods_file, sep=";",header = T)
   stations_ams<-stations_ams[!is.na(stations_ams[,1]),]
   myrec<-NA
@@ -47,24 +41,27 @@ extract_recessiontimes_allstations<-function(fraction=0.995,
   return(myrec)
 }
 
-
-
-#' Title
+#' @title Calculate recession time for daily data
+#' @description Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
+#' Select a high quantile from the distribution of the observed recessions specified by 'fraction'. Then
+#' estimate the recession time as the time needed to empty a linear resevoir to be 1% of its initial value
+#' Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
 #'
-#' @param fraction quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended
-#' @param stationnumber station number given as
-#' @param path_dd path for daily data
-#' @param active_station if active station is 1, ignore d_last and use data until end of data period
-#' @param d_first first year for extracting recession data
-#' @param d_last last year for extracting recession data
-#' @param d_exclude years to be excluded
+#' @param fraction Quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended
+#' @param stationnumber Station number given as rrmmmmm
+#' @param path_dd Path for daily data
+#' @param active_station If active station is 1, ignore d_last and use data until end of data period
+#' @param d_first First year for extracting recession data
+#' @param d_last Last year for extracting recession data
+#' @param d_exclude Years to be excluded
 #'
 #' @return recession time in days for the sepcified catchment
 #' @export
 #'
-#' @examples
+#' @examples get_recession_time(fraction=0.995,stationnumber=200011, path_dd='inst/Example_data/Dailydata',
+#' active_station=0,d_first=1880,d_last=2015,d_exclude=NA)
 get_recession_time<-function(fraction=0.995,stationnumber=200011, path_dd='inst/Example_data/Dailydata',active_station=0,
-                      d_first=1880,d_last=2015,d_exclude){
+                      d_first=1880,d_last=2015,d_exclude=NA){
 
   #extract regine and main numbers for later matching
   reginenr <- floor(stationnumber/100000)
