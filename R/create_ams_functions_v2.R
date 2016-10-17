@@ -30,7 +30,7 @@ extract_ams_allstations<-function(stations_periods_file="inst/Example_data/Flood
     if(i==1|is.na(myams)) myams<-myams_temp
     else if(!is.na(myams_temp))myams<-rbind(myams,myams_temp)
   }
-  write.table(myams[,c(1,2,4,5,8,7)],file=outfile,row.names=FALSE)
+  write.table(myams[,c(1,2,4,5,8,7)],file=outfile,row.names=FALSE,sep=";")
   return(myams[,c(1,2,4,5,8,7)])
 }
 
