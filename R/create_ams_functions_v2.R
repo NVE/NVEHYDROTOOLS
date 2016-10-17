@@ -1,3 +1,8 @@
+# Extract the annual maximum floods for daily and subdaily time resolution
+# If the annual maximqa for daily and subdaily time resolution is separated by two days or less, they are considered to
+# belong to the same flood event and they are written on the same line, and we have only one flood event for this year
+# if not, we have two flood flood event for this specifc year, and the daily and subdaily floo values are given for bith events.
+# For AMS analysis, only the maximum of these two should be used.
 #' Extracting ams-values for a list of stations
 #'
 #' @param stations_periods_file file with station numbers and perios for data
@@ -5,7 +10,8 @@
 #' @param subdailydata folder with subdaily data
 #' @param outfile file for stopring the ams values
 #'
-#' @return
+#' @return dataframe with regine number, main number, date for daily flood, daily maximum,
+#' date for subdaily flood, subdaily maximum for aqll stations. results are written to the outfile.
 #' @export
 #'
 #' @examples extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",

@@ -1,19 +1,16 @@
-## Script calculates peak over threshold floods (POT) based on chosen percentile (set value in line 20)
-# based on AMS-endelig datasett
-# and calculates FGPs (flood generating processes) for POT floods using concentration time = 2 days 
-# and recession times calculated based on Skaugen&Onof 2014. The FGP method is described closer in Vormoor et al, 2016.
-# script for recession times is found here: \\nve\fil\h\HM\Interne Prosjekter\Flomkart\Datakvalitet\Endelig_liste_mai_2016\scripts\calculate_recessiontimes.R
+## Script calculates peak over threshold floods (POT) based on chosen percentile
+# Use independence criterion based on Lang et al (1999) and ????
+# The following calculation steps are used:
+# 1: Find the thershold T based on the pecentile P from the observed daily data
+# 2: Find all values abouve the thershold and identify in which direction the threshold is crossed
+# 3: Find maximums of all clusters above thershold. A cluster is all values between an upward and a downward crossing.
+# 4: Find the number of days between each maximum from 3
+# 5: If data are separated by less than TTR*3, select the maximum. TTR is 'time to rize'. See Lang et al (1999)
+# 6: Find the minimum flow between two flood events
+# 7: if the minimum flow is higher than 2/3 of the first flood, then select the two
 # 10.06.2016, LESC (lena schlichting)
 #########################
 
-### choose threshold value for POT (eg 99-percentile: => 0.99)
-
-#p_threshold = 0.98
-#amsfile='../Flomdata/amsvalues.txt'
-#path_dd='../Dogndata'
-
-#TTR_3x <- 6     
-#pratio= 2./3.
 #' Extracting POT-values for a list of stations
 #' Should first extract AMS values
 #' @param amsfile file with annual maximum data. Only years with ams will be used
@@ -23,7 +20,8 @@
 #' @param pratio The minimum flow between two flood peaks should be less than pratio times the first flood peak.
 #' @param outfile The file for storing ams values
 #'
-#' @return
+#' @return data frame with reginenumber, main number, flood date, flod size, thershold. for all stations.
+#' The dataframe is written to the specified outfile. 
 #' @export
 #'
 #' @examples extract_pot_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',
@@ -63,7 +61,22 @@ extract_pot_allstations<-function(amsfile='inst/Example_data/Flooddata/amsvalues
   return(mypot)
 }
 
-
+#' Extracting POT-values for one station stations
+#' @param snumb Station number accordin to NVE: rrmmmmm where r is reine  number and m is main number
+#' @param f_years vectors of years that should be used. Data from other years will be excluded. If NA, all years will be used
+#' @param path_dd  folder with daily data
+#' @param p_threshold the thershold for selecting flood values given as emprical quantile of all data
+#' @param TTR_3X The minimum time between two independent flood peaks
+#' @param pratio The minimum flow between two flood peaks should be less than pratio times the first flood peak.
+#'
+#' @return data frame with reginenumber, main number, flood date, flod size, thershold for the station specified by snumb.
+#' @export
+#'
+#' @examples extract_pot_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',
+#' dailydata="inst/Example_data/Dailydata",
+#' p_threshold = 0.98, TTR_3x = 6,pratio= 2.0/3.0, 
+#' outfile="inst/Example_data/Flooddata/potvalues.txt")
+#
 get_pot<-function(snumb=200011,f_years=NA,path_dd="inst/Example_data/Dailydata",
                   p_threshold=0.98, TSEP = 6,pratio= 2./3.){
   
@@ -83,7 +96,8 @@ get_pot<-function(snumb=200011,f_years=NA,path_dd="inst/Example_data/Dailydata",
     dailydat[dailydat == -9999] <- NA
     daily_years <- as.numeric(na.omit(unique(dailydat$year)))
 
-    dailydat<-dailydat[is.element(dailydat$year,f_years),]  
+# use only the selected years    
+    if(!is.na(f_years))dailydat<-dailydat[is.element(dailydat$year,f_years),]  
 
 # Get the quantile used as threshold    
     qt<-quantile(as.numeric(dailydat[,2]),p_threshold)

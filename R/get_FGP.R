@@ -1,8 +1,8 @@
-## Script calculates peak over threshold floods (POT) based on chosen percentile (set value in line 20)
-# based on AMS-endelig datasett
-# and calculates FGPs (flood generating processes) for POT floods using concentration time = 2 days 
-# and recession times calculated based on Skaugen&Onof 2014. The FGP method is described closer in Vormoor et al, 2016.
-# script for recession times is found here: \\nve\fil\h\HM\Interne Prosjekter\Flomkart\Datakvalitet\Endelig_liste_mai_2016\scripts\calculate_recessiontimes.R
+# Calculates FGPs (flood generating processes) for floods using concentration time = 2 days 
+# This script requres a file with recession times for each station (enerated by ), a file with flood values
+# and a file with time series of snow melt and rain for each catchment.
+# For each flood events, the sum of rain and snow melt is caclulated for a window
+# The FGP method is described closer in Vormoor et al, 2016.
 # 10.06.2016, LESC (lena schlichting)
 #########################
 
