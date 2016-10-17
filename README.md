@@ -1,6 +1,18 @@
 # NVEHYDROTOOLS
 
-R package for processing flood data at NVE.
+R package for processing flood data at NVE.This includes to 
+
+(1) Extract annual maximum floods from daily and subdaily streamflow obsrvations
+
+(2) Extract catchment averages for daily temperatur, rain, snowmelt and runoff based on SeNorge modl results
+
+(3) Estimate a recession time for catchments based on daily streamflow observations. 
+
+(4) Estimate the relative contribution of rain precipitation for individual floods based on the SeNorge rain and snow melt data. 
+
+(5) Extract independent flood peaks over threshold using a percentile of the empirical 
+distribution of daily flows a a threhold and independence criterions based on the time between successive peaks
+and the minimum flow between peaks.
 
 ## Installation
 
