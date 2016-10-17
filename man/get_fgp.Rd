@@ -2,28 +2,33 @@
 % Please edit documentation in R/get_FGP.R
 \name{get_fgp}
 \alias{get_fgp}
-\title{Extracting flood generating process as the fraction of flood runoff casued by rain (0-1)
-for a list of floods specified by dates for one station}
+\title{Calculates flood generating processes (fgp) for floods}
 \usage{
 get_fgp(cfloods, crain, csnow, cdates, ctime = 2, rtime = 6)
 }
 \arguments{
-\item{cfloods, }{data with floods. amsfile file with the flood data.}
+\item{cfloods, }{Dataframe with floods alsocontaining the date of the flood event}
 
-\item{crain}{raindata for one catchmnents}
+\item{crain}{Array of rain precipitation for each day for one catchmnents}
 
-\item{csnow}{snowmeltdata for the catchment}
+\item{csnow}{Array of snow melt for each day for one catchment}
 
-\item{rtime}{recession time for one station}
+\item{rtime}{Recession time for one station}
 
-\item{Dates}{for the Metdata}
+\item{Dates}{Dates for or the metdata}
 
-\item{Ctime}{concentration time of the catchments.Is 2 days for all catchments}
+\item{Ctime}{Concentration time of the catchments.Is 2 days for all catchments}
 }
 \value{
 vector with fgp for ecah of the stations.
 }
 \description{
+Flood generating process is calculated as as the fraction of flood runoff casued by rain (0-1)
+for a set of identified flood events.
+For each flood events, the sum of rain and snow melt is caclulated for a time window
+given as the sum of concentration time and recession in front of the flood event.
+The FGP method is described closer in Vormoor et al, 2016.
+10.06.2016, LESC (lena schlichting)
 Extracting flood generating process as the fraction of flood runoff casued by rain (0-1)
 for a list of floods specified by dates for one station
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_ams_functions_v2.R
 \name{extract_ams_allstations}
 \alias{extract_ams_allstations}
-\title{Extract the annual maximum floods for daily and subdaily time resolution for a set of staions}
+\title{Extract the annual maximum floods for daily and subdaily time resolution for a set of stations}
 \usage{
 
   extract_ams_allstations(stations_periods_file = "inst/Example_data/Flooddata/Table_stations_periods.csv",

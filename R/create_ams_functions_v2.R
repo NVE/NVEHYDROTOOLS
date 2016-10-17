@@ -1,4 +1,4 @@
-#' @title Extract the annual maximum floods for daily and subdaily time resolution for a set of staions
+#' @title Extract the annual maximum floods for daily and subdaily time resolution for a set of stations
 #' @description See 'get_amsdata' for details on how ams values are extracted.
 #' @param stations_periods_file file with station numbers and perios for data
 #' @param dailydata  folder with daily data

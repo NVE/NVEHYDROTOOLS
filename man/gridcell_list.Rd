@@ -28,7 +28,11 @@ gridcell_list(c_ids = c("2.11.0", "12.13.0"),
 a list of grid-ids, where each element of the list represent a catchment. The names of the grid elemnts are copied from c_ids"RegineNumber.MainNumber.0"
 }
 \description{
-Extracting SeNorge grid-ids for catchments
+The SeNorge grid ids starts at 0 or 1 (depending on coding language) in upper left corner,
+and increase line by line. The coordinates are given in UTM33N and the center of the lower left cell
+has coordinates c(-74500, 6450500). Grid size is 1000 meters. The dimensjon of the grid is 1195,1550
+Shape file with catchment boundaries for NVE gauging stations might be downloaded from
+http://nedlasting.nve.no/gis/, and you should select HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
 }
 \examples{
 grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon")

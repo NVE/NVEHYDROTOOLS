@@ -1,17 +1,14 @@
-# Calculates FGPs (flood generating processes) for floods using concentration time = 2 days
-# This script requres a file with recession times for each station (enerated by ), a file with flood values
-# and a file with time series of snow melt and rain for each catchment.
-# For each flood events, the sum of rain and snow melt is caclulated for a window
-# The FGP method is described closer in Vormoor et al, 2016.
-# 10.06.2016, LESC (lena schlichting)
-#########################
-
-#' Extracting flood generating process as the fraction of flood runoff casued by rain (0-1)
-#' for a list of floods specified by station numbers and dates
+#' @title Extracting flood generating process for a set of stations
+#' @description Flood generating process is calculated as as the fraction of flood runoff casued by rain (0-1)
+#' for a set of stations and identified flood events. time series of catchment average rain and snow melt is
+#' extracted from the SeNorge model and is performed using the function 'extract_ams_allstations'. The recession times
+#' are calculated using 'extract_recessiontimes_allstations'
+#'  See "get_fgp" for details
 #'
-#' @param amsfile file with the flood data. Created by the function extract_ams_allstations
-#' @param rainfile file with the rain data. Created by the function get_metdataforfloods
-#' @param snowfile file with the snow melt data. Created by the function get_metdataforfloods
+#' @param amsfile file with the flood data. Created by the function 'extract_ams_allstations'
+#' @param rainfile file with the rain data. Created by the function 'get_metdataforfloods'
+#' @param snowfile file with the snow melt data. Created by the function 'get_metdataforfloods'
+#' @param recessionfile file with recession times. Created by the function 'extract_recessiontimes_allstations'
 #' @param outfile file for storing the fgp. Similar to the input flood file, but with a colomn of fgp added.
 #'
 #' @return dataframe with floods where fgp is included
@@ -61,16 +58,23 @@ get_fgp_allstations<-function(amsfile='inst/Example_data/Flooddata/amsvalues.txt
   return(floods_fgp)
 }
 
-
+#' @title Calculates flood generating processes (fgp) for floods
+#' @description Flood generating process is calculated as as the fraction of flood runoff casued by rain (0-1)
+#' for a set of identified flood events.
+#' For each flood events, the sum of rain and snow melt is caclulated for a time window
+#' given as the sum of concentration time and recession in front of the flood event.
+#' The FGP method is described closer in Vormoor et al, 2016.
+#' 10.06.2016, LESC (lena schlichting)
+#########################
 #' Extracting flood generating process as the fraction of flood runoff casued by rain (0-1)
 #' for a list of floods specified by dates for one station
 #'
-#' @param cfloods, data with floods. amsfile file with the flood data.
-#' @param crain raindata for one catchmnents
-#' @param csnow snowmeltdata for the catchment
-#' @param Dates for the Metdata
-#' @param Ctime concentration time of the catchments.Is 2 days for all catchments
-#' @param rtime recession time for one station
+#' @param cfloods, Dataframe with floods alsocontaining the date of the flood event
+#' @param crain Array of rain precipitation for each day for one catchmnents
+#' @param csnow Array of snow melt for each day for one catchment
+#' @param Dates Dates for or the metdata
+#' @param Ctime Concentration time of the catchments.Is 2 days for all catchments
+#' @param rtime Recession time for one station
 #' @return vector with fgp for ecah of the stations.
 #' @export
 #'

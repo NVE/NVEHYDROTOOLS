@@ -1,5 +1,10 @@
 
-#' Extracting SeNorge grid-ids for catchments
+#' @title Extracting SeNorge grid-ids for catchments
+#' @description The SeNorge grid ids starts at 0 or 1 (depending on coding language) in upper left corner,
+#' and increase line by line. The coordinates are given in UTM33N and the center of the lower left cell
+#' has coordinates c(-74500, 6450500). Grid size is 1000 meters. The dimensjon of the grid is 1195,1550
+#' Shape file with catchment boundaries for NVE gauging stations might be downloaded from
+#' http://nedlasting.nve.no/gis/, and you should select HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
 #'
 #' @param c_ids The lis of catchmen ID's that is specified as "RegineNumber.MainNumber.0"
 #' @param c_shape The shape file with the catchment boundaries for the gauging stations

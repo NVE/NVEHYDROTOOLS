@@ -1,7 +1,8 @@
-#' Title Extract daily values for precipitation, rain, snowmelt, temperature and runoff from
-#' the SeNorge data for specified catchments.
-#'
-#' @param gridid List of SeNorge grids for each catchment. Created by the function gridcell_list
+#' @title Title Extract catchment average precipitation, rain, snowmelt, temperature and runoff.
+#' @description The catchment averages are extracted from the SeNorge data. This dataset is available upon request.
+#' Need to run the function'grid_cell_list' in order to extract the catchment id of each grid cell.
+#' All results are written to files, one set of file for daily averages and one for long term mothly averages
+#' @param gridid List of SeNorge grids for each catchment. Created by the function 'gridcell_list'
 #' @param first_day The first day of the time sequence
 #' @param last_day The last day of the time sequence
 #' @param station_file List of stations if only a subset from the gridid-list is needed
