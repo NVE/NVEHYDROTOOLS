@@ -2,31 +2,38 @@
 % Please edit documentation in R/calculate_recessiontimes.R
 \name{get_recession_time}
 \alias{get_recession_time}
-\title{Title}
+\title{Calculate recession time for daily data}
 \usage{
 get_recession_time(fraction = 0.995, stationnumber = 200011,
-  path_dd = "../Dogndata", active_station = 0, d_first = 1880,
-  d_last = 2015, d_exclude)
+  path_dd = "inst/Example_data/Dailydata", active_station = 0,
+  d_first = 1880, d_last = 2015, d_exclude = NA)
 }
 \arguments{
-\item{fraction}{quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended}
+\item{fraction}{Quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended}
 
-\item{stationnumber}{station number given as}
+\item{stationnumber}{Station number given as rrmmmmm}
 
-\item{path_dd}{path for daily data}
+\item{path_dd}{Path for daily data}
 
-\item{active_station}{if active station is 1, ignore d_last and use data until end of data period}
+\item{active_station}{If active station is 1, ignore d_last and use data until end of data period}
 
-\item{d_first}{first year for extracting recession data}
+\item{d_first}{First year for extracting recession data}
 
-\item{d_last}{last year for extracting recession data}
+\item{d_last}{Last year for extracting recession data}
 
-\item{d_exclude}{years to be excluded}
+\item{d_exclude}{Years to be excluded}
 }
 \value{
 recession time in days for the sepcified catchment
 }
 \description{
-Title
+Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
+Select a high quantile from the distribution of the observed recessions specified by 'fraction'. Then
+estimate the recession time as the time needed to empty a linear resevoir to be 1% of its initial value
+Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
+}
+\examples{
+get_recession_time(fraction=0.995,stationnumber=200011, path_dd='inst/Example_data/Dailydata',
+active_station=0,d_first=1880,d_last=2015,d_exclude=NA)
 }
 

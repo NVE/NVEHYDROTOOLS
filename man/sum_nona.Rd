@@ -7,12 +7,15 @@
 sum_nona(xx)
 }
 \arguments{
-\item{xx}{}
+\item{xx}{The array of numbers and possible NA values}
 }
 \value{
-integer
+An integer with the number of values that are not NA
 }
 \description{
 Function for calculating number of values that are not NA in a vector
+}
+\examples{
+som_nona(x)
 }
 

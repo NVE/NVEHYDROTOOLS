@@ -2,14 +2,12 @@
 % Please edit documentation in R/calculate_recessiontimes.R
 \name{extract_recessiontimes_allstations}
 \alias{extract_recessiontimes_allstations}
-\title{Wrapping the 'get_recession_time' function to get recession times for a list of stations.
-Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
-Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.}
+\title{Calculate recession times for a set of stations}
 \usage{
 extract_recessiontimes_allstations(fraction = 0.995,
-  stations_periods_file = "../Data/Flooddata/Table_stations_periods.csv",
-  dailydata = "../Data/Dailydata",
-  outfile = "../Data/Flooddata/recessiontimes.txt")
+  stations_periods_file = "inst/Example_data/Flooddata/Table_stations_periods.csv",
+  dailydata = "inst/Example_data/Dailydata",
+  outfile = "inst/Example_data/Flooddata/recessiontimes.txt")
 }
 \arguments{
 \item{fraction}{quantile of the pdf of recession coefficients lamda used in calculation. A high value is recommended}
@@ -24,13 +22,12 @@ extract_recessiontimes_allstations(fraction = 0.995,
 a data object with recession times in days for all catchments
 }
 \description{
-Wrapping the 'get_recession_time' function to get recession times for a list of stations.
-Calculates average recession times in days, based on method described in Skaugen & Onof, 2014.
-Skaugen, T. and Onof, C. (2014): A rainfall-runoff model parameterized from GIS and runoff data. Hydrol. Process., 28, 4529-4542.
+See 'get_recession_time' for details on how recession times are extracted
 }
 \examples{
 extract_recessiontimes_allstations(fraction=0.995,
-"../inst/Example_data/Flooddata/Table_stations_periods.csv",
-"../inst/Dailydata", "../inst/Example_data/Flooddata/recessiontimes.txt")
+"inst/Example_data/Flooddata/Table_stations_periods.csv",
+"inst/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
+
 }
 

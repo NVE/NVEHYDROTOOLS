@@ -23,4 +23,7 @@ data frame with one more line than teh input
 Inserts an extra line in the data frame with flood data. This is necessary if for one year the
 date of the annual maximum daily flood is more than one day different than that for the subdaily annual maximum
 }
+\examples{
+insertRow(existingDF,r,dailydat,knekkdat)
+}
 

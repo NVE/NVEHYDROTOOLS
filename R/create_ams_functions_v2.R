@@ -1,10 +1,5 @@
-# Extract the annual maximum floods for daily and subdaily time resolution
-# If the annual maximqa for daily and subdaily time resolution is separated by two days or less, they are considered to
-# belong to the same flood event and they are written on the same line, and we have only one flood event for this year
-# if not, we have two flood flood event for this specifc year, and the daily and subdaily floo values are given for bith events.
-# For AMS analysis, only the maximum of these two should be used.
-#' Extracting ams-values for a list of stations
-#'
+#' @title Extract the annual maximum floods for daily and subdaily time resolution for a set of stations
+#' @description See 'get_amsdata' for details on how ams values are extracted.
 #' @param stations_periods_file file with station numbers and perios for data
 #' @param dailydata  folder with daily data
 #' @param subdailydata folder with subdaily data
@@ -17,7 +12,7 @@
 #' @examples extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
 #' dailydata="inst/Example_data/Dailydata", subdailydata="inst/Example_data/Subdaily",
 #' outfile="inst/Example_data/Flooddata/amsvalues.txt")
-#' 
+#'
 extract_ams_allstations<-function(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",dailydata="inst/Example_data/Dailydata",
                                   subdailydata="inst/Example_data/Subdaily",outfile="inst/Example_data/Flooddata/amsvalues.txt"){
   stations_ams <- read.table(stations_periods_file, sep=";",header = T)
@@ -30,7 +25,7 @@ extract_ams_allstations<-function(stations_periods_file="inst/Example_data/Flood
     if(i==1|is.na(myams)) myams<-myams_temp
     else if(!is.na(myams_temp))myams<-rbind(myams,myams_temp)
   }
-  write.table(myams[,c(1,2,4,5,8,7)],file=outfile,row.names=FALSE)
+  write.table(myams[,c(1,2,4,5,8,7)],file=outfile,row.names=FALSE,sep=";")
   return(myams[,c(1,2,4,5,8,7)])
 }
 
@@ -71,28 +66,29 @@ sum_nona<-function(xx){
   sum(!is.na(xx))
 }
 
-#' Extract annual maxima from daily time series for specified years rpovided the year has more than 363 observations.
-#'
-#' @param stationnumber
-#' @param path_dd path to folder with daily data
-#' @param path_sd path to folder with subdaily data
-#' @param active_station
-#' @param d_first first year to be used for daily data
-#' @param d_last last year to be used for daily data
-#' @param d_exclude years to be excluded for daily data
-#' @param s_first first year to use for subdaily data
-#' @param s_last last year to use for subdaily data
-#' @param s_exclude years to exclude for subdaily data
-#'
+#' @title  Extract annual maxima from daily time and subdaily time series for specified years
+#' @description  Use only years that has more than 363 observations.
+#' If the annual maximqa for daily and subdaily time resolution is separated by two days or less, they are considered to
+#' belong to the same flood event and they are written on the same line, and we have only one flood event for this year
+#' if not, we have two flood flood event for this specifc year, and the daily and subdaily floo values are given for bith events.
+#' For AMS analysis, only the maximum of these two should be used.
+#' @param stationnumber The station number given as rrrmmmmm
+#' @param path_dd Path to folder with daily data
+#' @param path_sd Path to folder with subdaily data
+#' @param active_station Is 1 if the station is active. Then also the most recent data ar used.
+#' @param d_first First year to be used for daily data
+#' @param d_last Last year to be used for daily data
+#' @param d_exclude Years to be excluded for daily data
+#' @param s_first First year to use for subdaily data
+#' @param s_last Last year to use for subdaily data
+#' @param s_exclude Years to exclude for subdaily data
 #' @return dataframe with station numbers, date an values for for daily and subdaily annual maxima
 #' If they are from teh same event, they are written on the same line
 #' if they are from different events, they are written on different lines
 #' @export
-#'
 #' @examples get_amsdata(stationnumber=200011, path_dd='inst/Excample_data/Dailydata',
 #' path_sd='inst/Excample_data/Subdaily',active_station=0,
 #' d_first=1880,d_last=2015,d_exclude=NA,s_first=1880,s_last=2015,s_exclude=NA)
-#'
 get_amsdata<-function(stationnumber=200011, path_dd='inst/Excample_data/Dailydata',
                       path_sd='inst/Excample_data/Subdaily',active_station=0,
                       d_first=1880,d_last=2015,d_exclude=NA,s_first=1880,s_last=2015,s_exclude=NA){
@@ -302,7 +298,7 @@ get_amsdata<-function(stationnumber=200011, path_dd='inst/Excample_data/Dailydat
 #' @return data frame with one more line than teh input
 #' @export
 #'
-#' @examples insertRow(existingDF,r,dailydat,knekkdat) 
+#' @examples insertRow(existingDF,r,dailydat,knekkdat)
 insertRow <- function(existingDF,r,dailydat,knekkdat) {
   existingDF[seq(r+1,nrow(existingDF)+1),] <- existingDF[seq(r,nrow(existingDF)),]
   existingDF[r,] <- existingDF[r+1,]

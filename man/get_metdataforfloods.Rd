@@ -2,18 +2,17 @@
 % Please edit documentation in R/GetMetValuesForFloods.R
 \name{get_metdataforfloods}
 \alias{get_metdataforfloods}
-\title{Title Extract daily values for precipitation, rain, snowmelt, temperature and runoff from
-the SeNorge data for specified catchments.}
+\title{Title Extract catchment average precipitation, rain, snowmelt, temperature and runoff.}
 \usage{
 get_metdataforfloods(gridid = NA, first_day = as.Date("1961/1/1"),
   last_day = as.Date("1990/12/31"),
-  station_file = "../Data/Flooddata/Table_stations_periods.csv",
-  snr_translation = "../Data/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+  station_file = "inst/Flooddata/Table_stations_periods.csv",
+  snr_translation = "inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
   metfolder = "U:/metdata/", snowfolder = "U:/snowsim/",
-  hbvfolder = "Z:/gwbsim/", outfolder = "../Data/Complete_data/Flooddata/")
+  hbvfolder = "Z:/gwbsim/", outfolder = "inst/Excample_data/Flooddata/")
 }
 \arguments{
-\item{gridid}{List of SeNorge grids for each catchment. Created by the function gridcell_list}
+\item{gridid}{List of SeNorge grids for each catchment. Created by the function 'gridcell_list'}
 
 \item{first_day}{The first day of the time sequence}
 
@@ -35,13 +34,14 @@ get_metdataforfloods(gridid = NA, first_day = as.Date("1961/1/1"),
 list with tables of daily and average monthly values
 }
 \description{
-Title Extract daily values for precipitation, rain, snowmelt, temperature and runoff from
-the SeNorge data for specified catchments.
+The catchment averages are extracted from the SeNorge data. This dataset is available upon request.
+Need to run the function'grid_cell_list' in order to extract the catchment id of each grid cell.
+All results are written to files, one set of file for daily averages and one for long term mothly averages
 }
 \examples{
 get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
-station_file="../inst/Excample_data/Flooddata/Table_stations_periods.csv",
-snr_translation="../inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
-metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="../inst/Complete_data/Flooddata/")
+station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
+snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
+metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 }
 
