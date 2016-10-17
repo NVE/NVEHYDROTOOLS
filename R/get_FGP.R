@@ -5,27 +5,29 @@
 #' are calculated using 'extract_recessiontimes_allstations'
 #'  See "get_fgp" for details
 #'
-#' @param amsfile file with the flood data. Created by the function 'extract_ams_allstations'
-#' @param rainfile file with the rain data. Created by the function 'get_metdataforfloods'
-#' @param snowfile file with the snow melt data. Created by the function 'get_metdataforfloods'
-#' @param recessionfile file with recession times. Created by the function 'extract_recessiontimes_allstations'
-#' @param outfile file for storing the fgp. Similar to the input flood file, but with a colomn of fgp added.
+#' @param floodfile File with the flood data. Created by the function 'extract_ams_allstations' or 'extract_pot_allstations'
+#' @param rainfile File with the rain data. Created by the function 'get_metdataforfloods'
+#' @param snowfile File with the snow melt data. Created by the function 'get_metdataforfloods'
+#' @param recessionfile File with recession times. Created by the function 'extract_recessiontimes_allstations'
+#' @param outfile File for storing the fgp. Similar to the input flood file, but with a colomn of fgp added.
+#' @param cfgp column where the fgp will be written.
 #'
-#' @return dataframe with floods where fgp is included
+#' @return dataframe with floods where fgp is included. The data frame is also written to file.
 #' @export
 #'
-#' @examples get_fgp_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
+#' @examples get_fgp_allstations(floodfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
 #' snowfile='inst/Example_data/klimadata/aveS.txt',recessionfile='inst/Example_data/flooddata/recessiontimes.txt',
 #' outfile='inst/Example_data/Flooddata/ams_and_fgp.txt')
 #'
 
 
-get_fgp_allstations<-function(amsfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
+get_fgp_allstations<-function(floodfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
                               snowfile='inst/Example_data/klimadata/aveS.txt',
                               recessionfile='inst/Example_data/flooddata/recessiontimes.txt',
-                              outfile='inst/Example_data/Flooddata/ams_and_fgp.txt'){
+                              outfile='inst/Example_data/Flooddata/ams_and_fgp.txt'
+                              cfgp=4){
 
-  floods<-read.table(amsfile, header=TRUE,sep=";")
+  floods<-read.table(floodfile, header=TRUE,sep=";")
   raindata<-read.table(rainfile)
   snowdata<-read.table(snowfile)
   recession<-read.table(recessionfile,header=TRUE)
@@ -50,10 +52,11 @@ get_fgp_allstations<-function(amsfile='inst/Example_data/Flooddata/amsvalues.txt
     if(i==1)myfgp=sfgp
     else myfgp=rbind(myfgp,sfgp)
   }
-
-  floods_fgp<-floods[,c(1,2,3,4,4,5,6)]
-  colnames(floods_fgp)[4]='FGP'
-  floods_fgp[,4]<-myfgp
+  nv=dim(floods)[2]
+  floods_fgp<-floods[,c(c(1:cfgp),c(cfgp:nv))]
+  
+  colnames(floods_fgp)[cfgp]='FGP'
+  floods_fgp[,cfgp]<-myfgp
   write.table(floods_fgp,file=outfile,row.names=FALSE)
   return(floods_fgp)
 }

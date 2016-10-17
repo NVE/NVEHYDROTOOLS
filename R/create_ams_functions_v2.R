@@ -1,9 +1,9 @@
 #' @title Extract the annual maximum floods for daily and subdaily time resolution for a set of stations
 #' @description See 'get_amsdata' for details on how ams values are extracted.
-#' @param stations_periods_file file with station numbers and perios for data
-#' @param dailydata  folder with daily data
-#' @param subdailydata folder with subdaily data
-#' @param outfile file for stopring the ams values
+#' @param stations_periods_file File with station numbers and perios for data
+#' @param dailydata  Folder with daily data
+#' @param subdailydata Folder with subdaily data
+#' @param outfile File for storing the ams values
 #'
 #' @return dataframe with regine number, main number, date for daily flood, daily maximum,
 #' date for subdaily flood, subdaily maximum for aqll stations. results are written to the outfile.
@@ -33,7 +33,7 @@ extract_ams_allstations<-function(stations_periods_file="inst/Example_data/Flood
 #' Extract period with subdaily data from a data with unregular times. Looks for the first four
 #' days in a row with subdaily time resolution. Assumes the reimaining period is at subdaily resoultion
 #'
-#' @param s_dat the data frame with the dates
+#' @param s_dat The data frame with the dates
 #'
 #' @return a dataframe where only periods with subdaily data is included
 #' @export
