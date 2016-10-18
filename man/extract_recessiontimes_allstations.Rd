@@ -25,9 +25,9 @@ a data object with recession times in days for all catchments
 See 'get_recession_time' for details on how recession times are extracted
 }
 \examples{
-extract_recessiontimes_allstations(fraction=0.995,
+recessions<-extract_recessiontimes_allstations(fraction=0.995,
 "inst/Example_data/Flooddata/Table_stations_periods.csv",
-"inst/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
+"inst/Example_data/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
 
 }
 

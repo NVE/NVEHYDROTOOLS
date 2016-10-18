@@ -6,6 +6,7 @@
 \usage{
 gridcell_list(c_ids = c("2.11.0", "12.13.0"),
   c_shape = "Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer = NA,
+  snr_translation = "inst/Example_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
   llcenter = c(-74500, 6450500), gridsize = c(1000, 1000),
   griddim = c(1195, 1550), myprojection = NA,
   outfile = "inst/Example_data/GISData/CID.txt")
@@ -38,7 +39,16 @@ Shape file with catchment boundaries for NVE gauging stations might be downloade
 http://nedlasting.nve.no/gis/, and you should select HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
 }
 \examples{
-grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
-grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
+grid_id_Narsjo<-gridcell_list("2.11.0",
+"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+c_layer="Hydrologi_TotalNedborfeltMalestasjon",
+snr_translation="inst/Example_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt"
+outfile='inst/Example_data/GISData/CID.txt')
+
+grid_id_all_catchments<-gridcell_list(NA,
+"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+c_layer="Hydrologi_TotalNedborfeltMalestasjon",
+snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt"
+outfile='inst/Example_data/GISData/CID.txt')
 }
 

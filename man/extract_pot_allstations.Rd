@@ -36,7 +36,7 @@ Should first extract AMS values to get the years to be used for extracting POT d
 \examples{
 extract_pot_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',
 dailydata="inst/Example_data/Dailydata",
-p_threshold = 0.98, TTR_3x = 6,pratio= 2.0/3.0,
+p_threshold = 0.98, TSEP = 6,pratio= 2.0/3.0,
 outfile="inst/Example_data/Flooddata/potvalues.txt")
 
 }

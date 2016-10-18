@@ -17,12 +17,10 @@
 #'
 #' @examples get_metdataforfloods(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
 #' station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
-#' snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 #' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 
 get_metdataforfloods<-function(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
 station_file="inst/Flooddata/Table_stations_periods.csv",
-snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolder="inst/Excample_data/Flooddata/")
 {
 noc=1852250    # antall celler i seNorge-grid
@@ -51,20 +49,8 @@ rnr=as.integer(slist[,1]/100000)
 hnr=slist[,1]-rnr*100000
 selected_stations<-paste(rnr,'.',hnr,'.0',sep="")
 
-snumber_T<-read.table(snr_translation,sep=";")
 
-rnr=as.integer(snumber_T[,1]/100000)
-hnr=snumber_T[,1]-rnr*100000
-snumber_FK<-paste(rnr,'.',hnr,'.0',sep="")
-rnr=as.integer(snumber_T[,2]/100000)
-hnr=snumber_T[,2]-rnr*100000
-snumber_GIS<-paste(rnr,'.',hnr,'.0',sep="")
-
-selected_stations_GIS<-selected_stations
-smat<-match(snumber_FK,selected_stations)
-selected_stations_GIS[na.omit(smat)]<-snumber_GIS[which(!is.na(smat))]
-
-stations_sel_index<-match(selected_stations_GIS,names(lgridid))
+stations_sel_index<-match(selected_stations,names(lgridid))
 
 
 ncatchments=length(selected_stations)            #Antall stasjoner
@@ -126,11 +112,11 @@ print(i)
 	Qgrid[Qgrid > 65500]<-NA
 
 #Beregner middelverdier
-    aveT[i,]<-sapply(seq(ns),function(ns){ mean(Tgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveP[i,]<-sapply(seq(ns),function(ns){ mean(Pgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveR[i,]<-sapply(seq(ns),function(ns){ mean(Rgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveS[i,]<-sapply(seq(ns),function(ns){ mean(Sgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveQ[i,]<-sapply(seq(ns),function(ns){ mean(Qgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
+    aveT[i,]<-sapply(seq(ns),function(ns){ round(mean(Tgrid[lgridid[[stations_sel_index[ns]]]+1],na.rm=TRUE),5)},simplify= "array")
+    aveP[i,]<-sapply(seq(ns),function(ns){ round(mean(Pgrid[lgridid[[stations_sel_index[ns]]]+1],na.rm=TRUE),5)},simplify= "array")
+    aveR[i,]<-sapply(seq(ns),function(ns){ round(mean(Rgrid[lgridid[[stations_sel_index[ns]]]+1],na.rm=TRUE),5)},simplify= "array")
+    aveS[i,]<-sapply(seq(ns),function(ns){ round(mean(Sgrid[lgridid[[stations_sel_index[ns]]]+1],na.rm=TRUE),5)},simplify= "array")
+    aveQ[i,]<-sapply(seq(ns),function(ns){ round(mean(Qgrid[lgridid[[stations_sel_index[ns]]]+1],na.rm=TRUE),5)},simplify= "array")
 }
 
 # Gjør om til oC og mm
