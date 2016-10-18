@@ -9,7 +9,7 @@
 #' date for subdaily flood, subdaily maximum for aqll stations. results are written to the outfile.
 #' @export
 #'
-#' @examples extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
+#' @examples amsdata<-extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
 #' dailydata="inst/Example_data/Dailydata", subdailydata="inst/Example_data/Subdaily",
 #' outfile="inst/Example_data/Flooddata/amsvalues.txt")
 #'

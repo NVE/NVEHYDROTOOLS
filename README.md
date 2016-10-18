@@ -41,7 +41,7 @@ two flood events is given per year:
 
 ```R
 library(NVEDATA)
-extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
+amsdata<-extract_ams_allstations(stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",
 dailydata="inst/Example_data/Dailydata", subdailydata="inst/Example_data/Subdaily",
 outfile="inst/Example_data/Flooddata/amsvalues.txt")
 ```
@@ -55,7 +55,8 @@ http://nedlasting.nve.no/gis/, and you should select the GIS dataset HYDROLOGISK
 ```R
 shapef <- '//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp'
 slayer<- 'Hydrologi_TotalNedborfeltMalestasjon'
-grid_id_all_catchments<-gridcell_list(NA,shapef,slayer)
+outfile<-'inst/Example_data/GISData/CID.txt'
+grid_id_all_catchments<-gridcell_list(NA,shapef,slayer,outfile)
 ```
 
 ## Example for extracting SeNorge grid IDs for the example stations
@@ -64,7 +65,8 @@ grid_id_all_catchments<-gridcell_list(NA,shapef,slayer)
 example_stations<-c("1.37.0","1.200.0","2.1.0","2.10.0","2.11.0","2.13.0","2.15.0","2.17.0","2.21.0","2.25.0","2.28.0","2.32.0")
 shapef <- '//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp'
 slayer<- 'Hydrologi_TotalNedborfeltMalestasjon'
-grid_id_example_catchments<-gridcell_list(c_ids=example_stations,shapef,slayer)
+outfile<-'inst/Example_data/GISData/CID.txt'
+grid_id_example_catchments<-gridcell_list(c_ids=example_stations,shapef,slayer,outfile)
 ```
 
 
