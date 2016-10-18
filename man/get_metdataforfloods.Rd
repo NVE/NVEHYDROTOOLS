@@ -7,7 +7,6 @@
 get_metdataforfloods(gridid = "inst/Example_data/GISData/CID.txt",
   first_day = as.Date("1961/1/1"), last_day = as.Date("1990/12/31"),
   station_file = "inst/Flooddata/Table_stations_periods.csv",
-  snr_translation = "inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
   metfolder = "U:/metdata/", snowfolder = "U:/snowsim/",
   hbvfolder = "Z:/gwbsim/", outfolder = "inst/Excample_data/Flooddata/")
 }
@@ -20,8 +19,6 @@ get_metdataforfloods(gridid = "inst/Example_data/GISData/CID.txt",
 
 \item{station_file}{List of stations if only a subset from the gridid-list is needed}
 
-\item{snr_translation}{Translation to GIS-station numbers if necesessary}
-
 \item{metfolder}{folder where SeNorge Met-grids are stored}
 
 \item{snowfolder}{folder where the SeNorge snow grids are stored}
@@ -29,6 +26,8 @@ get_metdataforfloods(gridid = "inst/Example_data/GISData/CID.txt",
 \item{hbvfolder}{folder where the SeNorge water balance modellin grids are stored}
 
 \item{outfolder}{folder for witing the results}
+
+\item{snr_translation}{Translation to GIS-station numbers if necesessary}
 }
 \value{
 list with tables of daily and average monthly values
@@ -41,7 +40,6 @@ All results are written to files, one set of file for daily averages and one for
 \examples{
 get_metdataforfloods(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
 station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
-snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 }
 

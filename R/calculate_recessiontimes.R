@@ -19,9 +19,9 @@ sum_nona<-function(xx){
 #' @return a data object with recession times in days for all catchments
 #' @export
 #'
-#' @examples extract_recessiontimes_allstations(fraction=0.995,
+#' @examples recessions<-extract_recessiontimes_allstations(fraction=0.995,
 #' "inst/Example_data/Flooddata/Table_stations_periods.csv",
-#' "inst/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
+#' "inst/Example_data/Dailydata", "inst/Example_data/Flooddata/recessiontimes.txt")
 #'
 extract_recessiontimes_allstations<-function(fraction=0.995,
   stations_periods_file="inst/Example_data/Flooddata/Table_stations_periods.csv",

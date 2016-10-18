@@ -21,10 +21,20 @@
 #' @importFrom sp proj4string GridTopology SpatialGridDataFrame over
 #'
 #' @examples
-#' grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
-#' grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
+#' grid_id_Narsjo<-gridcell_list("2.11.0",
+#' "//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+#' c_layer="Hydrologi_TotalNedborfeltMalestasjon",
+#' snr_translation="inst/Example_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt"
+#' outfile='inst/Example_data/GISData/CID.txt')
+#'
+#' grid_id_all_catchments<-gridcell_list(NA,
+#' "//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",
+#' c_layer="Hydrologi_TotalNedborfeltMalestasjon",
+#' snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt"
+#' outfile='inst/Example_data/GISData/CID.txt')
 
 gridcell_list<-function(c_ids=c("2.11.0","12.13.0"),c_shape="Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer=NA,
+snr_translation="inst/Example_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
  llcenter=c(-74500, 6450500), gridsize=c(1000,1000), griddim=c(1195,1550), myprojection=NA,outfile=
    'inst/Example_data/GISData/CID.txt'){
 
@@ -39,9 +49,25 @@ if(is.na(c_layer))
 c_layer=strsplit(c_shape,'.',fixed=TRUE)[[1]][1]
 all_catchments <- readOGR(c_shape,c_layer)
 
+
+# Translate from GIS station numbers to flood map stationnumbers
+snumber_T<-read.table(snr_translation,sep=";")
+rnr=as.integer(snumber_T[,1]/100000)
+hnr=snumber_T[,1]-rnr*100000
+snumber_FK<-paste(rnr,'.',hnr,'.0',sep="")
+rnr=as.integer(snumber_T[,2]/100000)
+hnr=snumber_T[,2]-rnr*100000
+snumber_GIS<-paste(rnr,'.',hnr,'.0',sep="")
+
+
 # Select the catchments
 if(is.na(c_ids))selected_catchments<-all_catchments
-else selected_catchments<-all_catchments[which(all_catchments$stID%in%c_ids),]
+else {
+  selected_stations_GIS<-c_ids
+  smat<-match(snumber_FK,c_ids)
+  selected_stations_GIS[na.omit(smat)]<-snumber_GIS[which(!is.na(smat))]
+  selected_catchments<-all_catchments[which(all_catchments$stID%in%selected_stations_GIS),]
+}
 if(length(selected_catchments)==0) stop("No catchments selected. c_ids should be given as regine_number.main_number.0")
 
 # define the projection:
@@ -60,7 +86,11 @@ senorge_grd <- SpatialGridDataFrame(grd,
 #Do the overlay
 out<-over(selected_catchments,senorge_grd,returnList=TRUE)
 names(out)<-selected_catchments$stID
-out.df = as.data.frame(do.call(cbind, out))
+# Change names to the station numbers used in the flood map project
+om<-match(snumber_GIS,names(out))
+names(out)[na.omit(om)]<-snumber_FK[which(!is.na(om))]
+# Change the output to a dataframe
+out.df = as.data.frame(do.call(rbind, out))
 c_temp<-matrix(unlist(strsplit(rownames(out.df),'.',fixed=TRUE)),ncol=4,byrow=TRUE)
 out.df$CNumber=paste(c_temp[,1],'.',c_temp[,2],'.',c_temp[,3],sep='')
 out.df<-out.df[,c(2,1)]

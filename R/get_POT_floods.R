@@ -14,7 +14,7 @@
 #'
 #' @examples extract_pot_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',
 #' dailydata="inst/Example_data/Dailydata",
-#' p_threshold = 0.98, TTR_3x = 6,pratio= 2.0/3.0,
+#' p_threshold = 0.98, TSEP = 6,pratio= 2.0/3.0,
 #' outfile="inst/Example_data/Flooddata/potvalues.txt")
 #'
 
@@ -41,7 +41,7 @@ extract_pot_allstations<-function(amsfile='inst/Example_data/Flooddata/amsvalues
     if(i==1|is.na(mypot)) mypot<-mypot_temp
     else if(!is.na(mypot_temp))mypot<-rbind(mypot,mypot_temp)
   }
-  write.table(mypot,file=outfile,row.names=FALSE)
+  write.table(mypot,file=outfile,row.names=FALSE,sep=";")
   return(mypot)
 }
 #' @title Extract independent POT values for one station
