@@ -102,10 +102,17 @@ get_pot<-function(snumb=200011,f_years=NA,path_dd="inst/Example_data/Dailydata",
     intersect.points<-which(diff(above)!=0)
 #    intersect.points[which(above[intersect.points]==FALSE)]
 
-# find up and dwon crossings over the thershold
+# find up and down crossings over the thershold
     up.cross<-intersect.points[!above[intersect.points]]+1
     down.cross<-intersect.points[above[intersect.points]]
+# If number of down crossings is larger than the number of up-crossings, the time series start with a flood event.
+# This event is excluded since we do not know if we get the maximum peak.
+    if(length(down.cross)>length(up.cross))down.cross<-down.cross[2:length(down.cross)]
 
+    # If number of up crossings is larger than the number of up-crossings, the time series ends with a flood event.
+    # This event is excluded since we do not know if we get the maximum peak.
+    if(length(down.cross)<length(up.cross))up.cross<-up.cross[1:(length(up.cross)-1)]
+    
 
 # Internal function for extracting flood peaks. To be used with sapply
     get_floodpeaks<-function(ii){
