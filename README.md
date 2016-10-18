@@ -1,4 +1,4 @@
-# NVEHYDROTOOLS
+﻿# NVEHYDROTOOLS
 
 R package for processing flood data at NVE.This includes to 
 
@@ -134,6 +134,14 @@ outf<-'inst/Example_data/Flooddata/pot_and_fgp.txt'
 fgp<-get_fgp_allstations(floodfile=fdata, rainfile=rdata,snowfile=sdata,recessionfile=resdata,outfile=outf,cfgp=4)
 ```
 
+## Example for extracting catchment characteristics for the flood stations
+
+```R
+cp_all<-'inst/Example_data/CatchmentCharacteristics/Hydra_FeltparTabell.csv'
+slist<- 'inst/Example_data/Flooddata/Table_stations_periods.csv'
+outfile<-'inst/Example_data/CatchmentCharacteristics/cp_floodstations.txt'
+create_CatchmentParameters(cp_all_stations=cp_all,floodstations=slist,cp_floodstations=outfile)
+```
 
 **Scripts developed during Flomkartproject:**
 
