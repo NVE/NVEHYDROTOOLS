@@ -4,25 +4,27 @@
 \alias{get_fgp_allstations}
 \title{Extracting flood generating process for a set of stations}
 \usage{
-get_fgp_allstations(amsfile = "inst/Example_data/Flooddata/amsvalues.txt",
+get_fgp_allstations(floodfile = "inst/Example_data/Flooddata/amsvalues.txt",
   rainfile = "inst/Example_data/klimadata/aveR.txt",
   snowfile = "inst/Example_data/klimadata/aveS.txt",
   recessionfile = "inst/Example_data/flooddata/recessiontimes.txt",
-  outfile = "inst/Example_data/Flooddata/ams_and_fgp.txt")
+  outfile = "inst/Example_data/Flooddata/ams_and_fgp.txt", cfgp = 4)
 }
 \arguments{
-\item{amsfile}{file with the flood data. Created by the function 'extract_ams_allstations'}
+\item{floodfile}{File with the flood data. Created by the function 'extract_ams_allstations' or 'extract_pot_allstations'}
 
-\item{rainfile}{file with the rain data. Created by the function 'get_metdataforfloods'}
+\item{rainfile}{File with the rain data. Created by the function 'get_metdataforfloods'}
 
-\item{snowfile}{file with the snow melt data. Created by the function 'get_metdataforfloods'}
+\item{snowfile}{File with the snow melt data. Created by the function 'get_metdataforfloods'}
 
-\item{recessionfile}{file with recession times. Created by the function 'extract_recessiontimes_allstations'}
+\item{recessionfile}{File with recession times. Created by the function 'extract_recessiontimes_allstations'}
 
-\item{outfile}{file for storing the fgp. Similar to the input flood file, but with a colomn of fgp added.}
+\item{outfile}{File for storing the fgp. Similar to the input flood file, but with a colomn of fgp added.}
+
+\item{cfgp}{column where the fgp will be written.}
 }
 \value{
-dataframe with floods where fgp is included
+dataframe with floods where fgp is included. The data frame is also written to file.
 }
 \description{
 Flood generating process is calculated as as the fraction of flood runoff casued by rain (0-1)
@@ -32,7 +34,7 @@ are calculated using 'extract_recessiontimes_allstations'
  See "get_fgp" for details
 }
 \examples{
-get_fgp_allstations(amsfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
+get_fgp_allstations(floodfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
 snowfile='inst/Example_data/klimadata/aveS.txt',recessionfile='inst/Example_data/flooddata/recessiontimes.txt',
 outfile='inst/Example_data/Flooddata/ams_and_fgp.txt')
 

@@ -24,7 +24,7 @@
 get_fgp_allstations<-function(floodfile='inst/Example_data/Flooddata/amsvalues.txt',rainfile='inst/Example_data/klimadata/aveR.txt',
                               snowfile='inst/Example_data/klimadata/aveS.txt',
                               recessionfile='inst/Example_data/flooddata/recessiontimes.txt',
-                              outfile='inst/Example_data/Flooddata/ams_and_fgp.txt'
+                              outfile='inst/Example_data/Flooddata/ams_and_fgp.txt',
                               cfgp=4){
 
   floods<-read.table(floodfile, header=TRUE,sep=";")
@@ -54,7 +54,7 @@ get_fgp_allstations<-function(floodfile='inst/Example_data/Flooddata/amsvalues.t
   }
   nv=dim(floods)[2]
   floods_fgp<-floods[,c(c(1:cfgp),c(cfgp:nv))]
-  
+
   colnames(floods_fgp)[cfgp]='FGP'
   floods_fgp[,cfgp]<-myfgp
   write.table(floods_fgp,file=outfile,row.names=FALSE)

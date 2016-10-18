@@ -11,13 +11,13 @@
   outfile = "inst/Example_data/Flooddata/amsvalues.txt")
 }
 \arguments{
-\item{stations_periods_file}{file with station numbers and perios for data}
+\item{stations_periods_file}{File with station numbers and perios for data}
 
-\item{dailydata}{folder with daily data}
+\item{dailydata}{Folder with daily data}
 
-\item{subdailydata}{folder with subdaily data}
+\item{subdailydata}{Folder with subdaily data}
 
-\item{outfile}{file for stopring the ams values}
+\item{outfile}{File for storing the ams values}
 }
 \value{
 dataframe with regine number, main number, date for daily flood, daily maximum,
