@@ -7,7 +7,8 @@
 gridcell_list(c_ids = c("2.11.0", "12.13.0"),
   c_shape = "Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer = NA,
   llcenter = c(-74500, 6450500), gridsize = c(1000, 1000),
-  griddim = c(1195, 1550), myprojection = NA)
+  griddim = c(1195, 1550), myprojection = NA,
+  outfile = "inst/Example_data/GISData/CID.txt")
 }
 \arguments{
 \item{c_ids}{The lis of catchmen ID's that is specified as "RegineNumber.MainNumber.0"}
@@ -23,6 +24,8 @@ gridcell_list(c_ids = c("2.11.0", "12.13.0"),
 \item{griddim}{Number of gridcells in x and y directions}
 
 \item{myprojection}{Projection might be specified. If not use the proj4-string from c_shape.}
+
+\item{outfile}{File where the GridCell ids for each catchment is stored}
 }
 \value{
 a list of grid-ids, where each element of the list represent a catchment. The names of the grid elemnts are copied from c_ids"RegineNumber.MainNumber.0"
@@ -35,7 +38,7 @@ Shape file with catchment boundaries for NVE gauging stations might be downloade
 http://nedlasting.nve.no/gis/, and you should select HYDROLOGISKE DATA->Totalnedbørfelt til målestasjon
 }
 \examples{
-grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon")
-grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon")
+grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
+grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
 }
 

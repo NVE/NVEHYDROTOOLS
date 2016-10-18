@@ -2,7 +2,7 @@
 #' @description The catchment averages are extracted from the SeNorge data. This dataset is available upon request.
 #' Need to run the function'grid_cell_list' in order to extract the catchment id of each grid cell.
 #' All results are written to files, one set of file for daily averages and one for long term mothly averages
-#' @param gridid List of SeNorge grids for each catchment. Created by the function 'gridcell_list'
+#' @param gridid File with gridIDs of SeNorge grids for each catchment. Created by the function 'gridcell_list'
 #' @param first_day The first day of the time sequence
 #' @param last_day The last day of the time sequence
 #' @param station_file List of stations if only a subset from the gridid-list is needed
@@ -15,12 +15,12 @@
 #' @return list with tables of daily and average monthly values
 #' @export
 #'
-#' @examples get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
+#' @examples get_metdataforfloods(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
 #' station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
 #' snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 #' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 
-get_metdataforfloods<-function(gridid=NA,first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
+get_metdataforfloods<-function(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
 station_file="inst/Flooddata/Table_stations_periods.csv",
 snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolder="inst/Excample_data/Flooddata/")
@@ -39,6 +39,11 @@ par2='rr'      # nedbor
 par3='qsw'     # Snøsmelting
 par4='gwb_q'   # Avrenning
 
+# read in the gri cell identification as a data frame
+station_gridid<-read.table(gridid,header=TRUE)
+
+#Change it to a list:
+lgridid<-split(station_gridid$id, list(station_gridid$CNumber))
 
 slist<-read.table(station_file,sep=";",header=TRUE)
 
@@ -59,7 +64,7 @@ selected_stations_GIS<-selected_stations
 smat<-match(snumber_FK,selected_stations)
 selected_stations_GIS[na.omit(smat)]<-snumber_GIS[which(!is.na(smat))]
 
-stations_sel_index<-match(selected_stations_GIS,names(gridid))
+stations_sel_index<-match(selected_stations_GIS,names(lgridid))
 
 
 ncatchments=length(selected_stations)            #Antall stasjoner
@@ -121,13 +126,11 @@ print(i)
 	Qgrid[Qgrid > 65500]<-NA
 
 #Beregner middelverdier
-    aveT[i,]<-sapply(seq(ns),function(ns){ mean(Tgrid[gridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveP[i,]<-sapply(seq(ns),function(ns){ mean(Pgrid[gridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveR[i,]<-sapply(seq(ns),function(ns){ mean(Rgrid[gridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveS[i,]<-sapply(seq(ns),function(ns){ mean(Sgrid[gridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-    aveQ[i,]<-sapply(seq(ns),function(ns){ mean(Qgrid[gridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
-
-
+    aveT[i,]<-sapply(seq(ns),function(ns){ mean(Tgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
+    aveP[i,]<-sapply(seq(ns),function(ns){ mean(Pgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
+    aveR[i,]<-sapply(seq(ns),function(ns){ mean(Rgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
+    aveS[i,]<-sapply(seq(ns),function(ns){ mean(Sgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
+    aveQ[i,]<-sapply(seq(ns),function(ns){ mean(Qgrid[lgridid[[stations_sel_index[ns]]]$id+1],na.rm=TRUE)},simplify= "array")
 }
 
 # Gjør om til oC og mm

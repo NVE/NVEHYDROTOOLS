@@ -8,7 +8,7 @@ days in a row with subdaily time resolution. Assumes the reimaining period is at
 get_subdaily_period(s_dat)
 }
 \arguments{
-\item{s_dat}{the data frame with the dates}
+\item{s_dat}{The data frame with the dates}
 }
 \value{
 a dataframe where only periods with subdaily data is included

@@ -4,15 +4,15 @@
 \alias{get_metdataforfloods}
 \title{Title Extract catchment average precipitation, rain, snowmelt, temperature and runoff.}
 \usage{
-get_metdataforfloods(gridid = NA, first_day = as.Date("1961/1/1"),
-  last_day = as.Date("1990/12/31"),
+get_metdataforfloods(gridid = "inst/Example_data/GISData/CID.txt",
+  first_day = as.Date("1961/1/1"), last_day = as.Date("1990/12/31"),
   station_file = "inst/Flooddata/Table_stations_periods.csv",
   snr_translation = "inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
   metfolder = "U:/metdata/", snowfolder = "U:/snowsim/",
   hbvfolder = "Z:/gwbsim/", outfolder = "inst/Excample_data/Flooddata/")
 }
 \arguments{
-\item{gridid}{List of SeNorge grids for each catchment. Created by the function 'gridcell_list'}
+\item{gridid}{File with gridIDs of SeNorge grids for each catchment. Created by the function 'gridcell_list'}
 
 \item{first_day}{The first day of the time sequence}
 
@@ -39,7 +39,7 @@ Need to run the function'grid_cell_list' in order to extract the catchment id of
 All results are written to files, one set of file for daily averages and one for long term mothly averages
 }
 \examples{
-get_metdataforfloods(gridid=grid_id_all_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
+get_metdataforfloods(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1961/12/31"),
 station_file="inst/Excample_data/Flooddata/Table_stations_periods.csv",
 snr_translation="inst/Excample_data/CatchmentCharacteristics/Feltnr_flomkart_til_feltnr_GIS.txt",
 metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")

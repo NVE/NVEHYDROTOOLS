@@ -13,6 +13,7 @@
 #' @param gridsize Gridsize in meters
 #' @param griddim Number of gridcells in x and y directions
 #' @param myprojection Projection might be specified. If not use the proj4-string from c_shape.
+#' @param outfile File where the GridCell ids for each catchment is stored
 #'
 #' @return a list of grid-ids, where each element of the list represent a catchment. The names of the grid elemnts are copied from c_ids"RegineNumber.MainNumber.0"
 #' @export
@@ -20,11 +21,12 @@
 #' @importFrom sp proj4string GridTopology SpatialGridDataFrame over
 #'
 #' @examples
-#' grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon")
-#' grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon")
+#' grid_id_Narsjo<-gridcell_list("2.11.0","//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp", c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
+#' grid_id_all_catchments<-gridcell_list(NA,"//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer="Hydrologi_TotalNedborfeltMalestasjon",outfile='inst/Example_data/GISData/CID.txt')
 
 gridcell_list<-function(c_ids=c("2.11.0","12.13.0"),c_shape="Hydrologi_TotalNedborfeltMalestasjon.shp",c_layer=NA,
- llcenter=c(-74500, 6450500), gridsize=c(1000,1000), griddim=c(1195,1550), myprojection=NA){
+ llcenter=c(-74500, 6450500), gridsize=c(1000,1000), griddim=c(1195,1550), myprojection=NA,outfile=
+   'inst/Example_data/GISData/CID.txt'){
 
   if (!require('rgdal')) {
     stop('The package rgdal was not installed')
@@ -58,6 +60,11 @@ senorge_grd <- SpatialGridDataFrame(grd,
 #Do the overlay
 out<-over(selected_catchments,senorge_grd,returnList=TRUE)
 names(out)<-selected_catchments$stID
-return(out)
+out.df = as.data.frame(do.call(cbind, out))
+c_temp<-matrix(unlist(strsplit(rownames(out.df),'.',fixed=TRUE)),ncol=4,byrow=TRUE)
+out.df$CNumber=paste(c_temp[,1],'.',c_temp[,2],'.',c_temp[,3],sep='')
+out.df<-out.df[,c(2,1)]
+write.table(out.df,row.names=FALSE,file=outfile)
+return(out.df)
 }
 
