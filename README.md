@@ -66,7 +66,7 @@ example_stations<-c("1.37.0","1.200.0","2.1.0","2.10.0","2.11.0","2.13.0","2.15.
 shapef <- '//nve/fil/h/HM/Interne Prosjekter/Flomkart/Data/GISData/Hydrologi_TotalNedborfeltMalestasjon.shp'
 slayer<- 'Hydrologi_TotalNedborfeltMalestasjon'
 outfile<-'inst/Example_data/GISData/CID.txt'
-grid_id_example_catchments<-gridcell_list(c_ids=example_stations,shapef,slayer,outfile)
+grid_id_example_catchments<-gridcell_list(c_ids=example_stations,c_shapef,c_slayer,outfile=outfile)
 ```
 
 
