@@ -93,7 +93,7 @@ get_pot<-function(snumb=200011,f_years=NA,path_dd="inst/Example_data/Dailydata",
     if(!is.na(f_years))dailydat<-dailydat[is.element(dailydat$year,f_years),]
 
 # Get the quantile used as threshold
-    qt<-quantile(as.numeric(dailydat[,2]),p_threshold)
+    qt<-quantile(as.numeric(dailydat[,2]),p_threshold,na.rm=TRUE)
 
 # find alle data abpove the thershold
     above<-dailydat[,2]>qt
