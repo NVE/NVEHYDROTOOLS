@@ -26,6 +26,12 @@ metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolde
 noc=1852250    # antall celler i seNorge-grid
 NoData=10000
 
+# Hack to account for difference beween storing data for a hydrologic year (Version 1.0 and for calendar year (version 2.0 and higher))
+ncc<-nchar(metfolder)
+cyear=TRUE
+if(substr(metfolder,(ncc-7),(ncc-1))=='metdata')cyear=FALSE
+#
+
 mdates<-seq(first_day, last_day, by="days") # periode som data skal tas ut for
 # U:\ is \\hdata\grid
 # Z:\ is \\hdata\grid2
@@ -73,21 +79,23 @@ print(ndays)
 print(i)
     HyYear=myears[i]
     Year=myears[i]
+
     if ( as.numeric(mmonths[i]) >= 9 )          # Sjekk hydrologisk aar
       HyYear=toString(as.numeric(myears[i])+1)
      Day=mdays[i]
 	  Month=mmonths[i]
 
     ##  tar ut temperaturdata. De er lagret på binærfil, unsigned integer 2 bit
-
-    dataT=paste(FileFolder,par1,'/',HyYear,'/',par1,'_',Year,'_',Month,'_',Day,'.bil',sep="")
+	  MetYear=HyYear
+	  if(cyear)MetYear=Year
+    dataT=paste(FileFolder,par1,'/',MetYear,'/',par1,'_',Year,'_',Month,'_',Day,'.bil',sep="")
     fc <- file(dataT,"rb")
     Tgrid<-readBin(fc, what="integer", n=noc, size = 2, signed = FALSE)
     close(fc)
 	Tgrid[Tgrid > 9999]<-NA
 
     ##  tar ut nedbørsdata	De er lagret på binærfil, unsigned integer 2 bit
-    dataP=paste(FileFolder,par2,'/',HyYear,'/',par2,'_',Year,'_',Month,'_',Day,'.bil',sep="")
+    dataP=paste(FileFolder,par2,'/',MetYear,'/',par2,'_',Year,'_',Month,'_',Day,'.bil',sep="")
 	fc <- file(dataP,"rb")
     Pgrid<-readBin(fc, what="integer", n=noc, size = 2, signed = FALSE)
     close(fc)
