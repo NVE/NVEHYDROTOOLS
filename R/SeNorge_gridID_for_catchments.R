@@ -91,6 +91,8 @@ om<-match(snumber_GIS,names(out))
 names(out)[na.omit(om)]<-snumber_FK[which(!is.na(om))]
 # Change the output to a dataframe
 out.df = as.data.frame(do.call(rbind, out))
+# Hach so that all row names has four numbers separated by a dot
+rownames(out.df)[which(rl<11)]<-paste(rownames(out.df)[which(rl<11)],'.9999999999',sep='')
 c_temp<-matrix(unlist(strsplit(rownames(out.df),'.',fixed=TRUE)),ncol=4,byrow=TRUE)
 out.df$CNumber=paste(c_temp[,1],'.',c_temp[,2],'.',c_temp[,3],sep='')
 out.df<-out.df[,c(2,1)]
