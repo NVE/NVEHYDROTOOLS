@@ -146,5 +146,5 @@ create_CatchmentParameters(cp_all_stations=cp_all,floodstations=slist,cp_floodst
 **Scripts developed during Flomkartproject:**
 
 
-*Lena Schlichting and Kolbjørn Engeland 2016.*
+*Lena Schlichting and Kolbjørn Engeland, 2016.*
 
