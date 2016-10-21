@@ -1,3 +1,4 @@
+setwd('C:/Users/koe/Documents/Flomkart/NVEHYDROTOOLS')
 sfile<-'inst/Example_data/Flooddata/Table_stations_periods.csv'
 grid_id_example_catchments<-'inst/Example_data/GISData/CID.txt'
 outf<-'inst/Example_data/Flooddata/SeNorge2.1/'
