@@ -94,7 +94,11 @@ sfile<-'inst/Example_data/Flooddata/Table_stations_periods.csv'
 grid_id_example_catchments<-'inst/Example_data/GISData/CID.txt'
 outf<-'inst/Example_data/Flooddata/'
 metinf<-get_metdataforfloods(gridid=grid_id_example_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/01/31"),
-station_file=sfile,metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder=outf)
+station_file=sfile,metfolder="U:/metdata/met_obs_v2.0/",snowfolder="U:/snowsim/snowsim_v2.0.1/",hbvfolder="Z:/gwbsim/gwbsim_v2.0",outfolder=outf)
+
+# Using all catchments identified in the grid id file:
+metinf<-get_metdataforfloods(gridid=grid_id_example_catchments,first_day=as.Date("1961/1/1"),last_day=as.Date("1961/01/31"),
+station_file=NA,metfolder="U:/metdata/met_obs_v2.0/",snowfolder="U:/snowsim/snowsim_v2.0.1/",hbvfolder="Z:/gwbsim/gwbsim_v2.0",outfolder=outf)
 ```
 
 ## Example for calculating recession time for a set of stations
