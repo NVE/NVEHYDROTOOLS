@@ -20,7 +20,7 @@
 #' metfolder="U:/metdata/",snowfolder="U:/snowsim/",hbvfolder="Z:/gwbsim/",outfolder="inst/Excample_data/Flooddata/")
 
 get_metdataforfloods<-function(gridid='inst/Example_data/GISData/CID.txt',first_day=as.Date("1961/1/1"),last_day=as.Date("1990/12/31"),
-station_file="inst/Flooddata/Table_stations_periods.csv",
+station_file=NA,
 metfolder='U:/metdata/',snowfolder='U:/snowsim/',hbvfolder='Z:/gwbsim/',outfolder="inst/Excample_data/Flooddata/")
 {
 noc=1852250    # antall celler i seNorge-grid
@@ -49,17 +49,19 @@ station_gridid<-read.table(gridid,header=TRUE)
 #Change it to a list:
 lgridid<-split(station_gridid$id, list(station_gridid$CNumber))
 
+if(!is.na(station_file)){
 slist<-read.table(station_file,sep=";",header=TRUE)
-
 rnr=as.integer(slist[,1]/100000)
 hnr=slist[,1]-rnr*100000
 selected_stations<-paste(rnr,'.',hnr,'.0',sep="")
-
-
 stations_sel_index<-match(selected_stations,names(lgridid))
-
-
 ncatchments=length(selected_stations)            #Antall stasjoner
+}
+else{
+selected_stations<-names(lgridid)
+ncatchments=length(lgridif)
+station_sel_index<-c(1:ncatchments)
+}
 
 myears=substr(mdates,1,4)
 mmonths=substr(mdates,6,7)
