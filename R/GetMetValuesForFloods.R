@@ -59,8 +59,8 @@ ncatchments=length(selected_stations)            #Antall stasjoner
 }
 else{
 selected_stations<-names(lgridid)
-ncatchments=length(lgridif)
-station_sel_index<-c(1:ncatchments)
+ncatchments=length(lgridid)
+stations_sel_index<-c(1:ncatchments)
 }
 
 myears=substr(mdates,1,4)
