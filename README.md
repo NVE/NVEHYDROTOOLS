@@ -27,7 +27,7 @@ Install the package with the following code:
 
 ```R
 library(devtools)
-install_github("fbaffie/NVEHYDROTOOLS")
+install_github("NVE/NVEHYDROTOOLS")
 ```
 The installation comes with an example dataset in the directory 'inst'. The full dataset is 
 located in //nve/fil/h/HM/Interne Prosjekter/Flomkart/Data
